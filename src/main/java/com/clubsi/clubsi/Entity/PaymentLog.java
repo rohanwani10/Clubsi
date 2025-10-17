@@ -19,7 +19,7 @@ public class PaymentLog {
     @Id
     private String id;
 
-    @Indexed(unique=true)
+    @Indexed(unique = true)
     private String transactionId;
     private String paymentMethodToken;
     private String totalPrice;
@@ -28,7 +28,9 @@ public class PaymentLog {
     private String errorMessage;
     private long timestamp;
 
-    // Stores the string of username of user
+    @DBRef
+    private Event event;
+
     @DBRef
     private User user;
 
