@@ -34,7 +34,7 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(
-                auth -> auth.requestMatchers("/user/register", "/user/login", "/test").permitAll()
+                auth -> auth.requestMatchers("/user/register", "/user/login").permitAll()
                         .requestMatchers("/verify/**").hasAuthority("ROLE_ADMIN")
                         .anyRequest().authenticated())
                 .csrf(csrf -> csrf.disable())
@@ -43,7 +43,6 @@ public class SecurityConfiguration {
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
-
 
     @Bean
     public AuthenticationProvider authenticationProvider() {
@@ -75,6 +74,5 @@ public class SecurityConfiguration {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
-
 
 }

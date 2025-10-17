@@ -15,7 +15,6 @@ import java.util.Map;
 @Component
 public class JwtUtil {
 
-
     @Value("${SecurityConstants.JWT_SECRET}")
     private String JWT_SECRET;
 
@@ -38,7 +37,7 @@ public class JwtUtil {
 
     public String generateJwtToken(String username, List<String> roles) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("roles",roles);
+        claims.put("roles", roles);
         return createToken(claims, username);
     }
 
@@ -46,7 +45,7 @@ public class JwtUtil {
         return Jwts.builder().setClaims(claims)
                 .setHeaderParam("typ", "JWT")
                 .setSubject(subject)
-                .setIssuer("EcoLab")
+                .setIssuer("Clubci")
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
                 .signWith(getSigningKey()).compact();
@@ -57,10 +56,8 @@ public class JwtUtil {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
-
     public Boolean validateToken(String token) {
         return !isTokenExpired(token);
     }
-
 
 }
